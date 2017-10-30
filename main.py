@@ -8,38 +8,59 @@ from pygame.locals import *
 
 from OpenGL.GL import *
 from OpenGL.GLU import *
+from OpenGL.GLUT import *
+
 
 # END OF IMPORT
 
-SCREEN_SIZE = (600,600)
+SCREEN_SIZE = (800,800)
 
 # FUNCTIONS
 
 
-def main():
-	pygame.init()
-	screen = pygame.display.set_mode(SCREEN_SIZE, OPENGL|DOUBLEBUF)
 
-	#gluPerspective(0, (SCREEN_SIZE[0]/SCREEN_SIZE[1]), 0.1, 50.0)
-	#glTranslatef(0.0,0.000001,)
+def main():
+
+	pygame.display.set_mode(SCREEN_SIZE, OPENGL|DOUBLEBUF)
+
+	#glEnable(GL_DEPTH_TEST)
+	gluPerspective(45, (SCREEN_SIZE[0]/SCREEN_SIZE[1]), 0.1, 50.0)
+	glOrtho(-1,1,-1,1,0.1,50)
+	#glViewport(0,0,500,500)
+
+	#Menggambar Graph Line
 
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
 	rn.GraphLine()
 	pygame.display.flip()
-
+	pygame.time.wait(10)
+	"""
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			pygame.quit()
+			quit()
+	"""
 	
+	#DRAW
 	#while True:
-	#for event in pygame.event.get():
-	#	if event.type == pygame.QUIT:
-	#		pygame.quit()
-	#		quit()
-
-	N = int(input()) # INPUT N
-	#PList = [] # DEFINE EMPTY LIST
-	#for i in range(N): # GET POINTS
-	#	X, Y = getPoints()
-	#	PList.append([int(X),int(Y)]) 
-
+	#glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+	#rn.GraphLine()
+	#pygame.display.flip()
+	#pygame.time.wait(10)
+	
+	N = int(input())
+	PList = [] # DEFINE EMPTY LIST
+	for i in range(N): # GET POINTS
+		X, Y = rn.getPoints()
+		PList.append([int(X)/SCREEN_SIZE[0], int(Y)/SCREEN_SIZE[1],0.0])
+	rn.drawPolygon(PList)
+	pygame.display.flip()
+	
+	
+	x = input()
+	
+	
+	
 	#Points = np.array(PList)
 	
 	
