@@ -26,13 +26,9 @@ def draw_rect1(x, y, width, height):
     glEnd()                                            # done drawing a rectangle
 
 def draw_line():
-    glBegin(GL_LINES)
-    glVertex3f(width1,height/2,0)
-    glVertex3f(width,height/2,0)
-    glEnd()
-    glBegin(GL_LINES)
-    glVertex3f(width/2,height,0)
-    glVertex3f(width/2,height1,0)
+    glBegin(GL_LINE)
+    glVertex2f(10,10)
+    glVertex2f(20,20)
     glEnd()
 
 def refresh2d(width, height):
