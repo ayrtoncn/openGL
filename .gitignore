@@ -1,2 +1,4 @@
 
 main.py
+*.pyc
+main.py

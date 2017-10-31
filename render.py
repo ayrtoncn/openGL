@@ -4,7 +4,7 @@ import numpy as np
 import sys
 
 
-graph_line = np.matrix([[0,1,0],[0,-1,0],[1,0,0],[-1,0,0]])
+graph_line = np.matrix([[0,500,0],[0,-500,0],[500,0,0],[-500,0,0]])
 
 
 def GraphLine():
@@ -18,18 +18,18 @@ def GraphLine():
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0)
 	glDrawArrays(GL_LINES,0,1)
 	"""
-	glPushMatrix()
 	glBegin(GL_LINES)
+	glColor3f(1.0,1.0,1.0)
 	for points in graph_line:
 		glVertex3fv(points)
 	glEnd()
-	glPopMatrix()
 
 def getPoints():
 	return input().split(",")
 	
 def drawPolygon(Points):
 	glBegin(GL_POLYGON)
+	glColor3f(0.0, 0.0, 1.0)  
 	for points in Points:
 		glVertex3fv(points)
 	glEnd()
