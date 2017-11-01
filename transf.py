@@ -12,9 +12,13 @@ def inpTransfType():
 def transform(M):
 	if inpTransfType() == "translate" :
 		X, Y = input().split(' ')
-		ListAdd = []
+		for points in M:
+			points[0,0]=points[0,0]+X
+			points[0,1]=points[0,1]+Y
+		'''ListAdd = []
 		for points in M:
 			ListAdd.append([X,Y,0])
 		MAdd = np.matrix(ListAdd)
-		M = np.add(ListAdd,M)
+		M = np.add(ListAdd,M)'''
+		print(M)
 	return M
