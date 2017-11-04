@@ -110,7 +110,46 @@ def sheer(sumbu,K):
 			Mtemp[j][1]=(points[0,1]+K*points[0,0]-points[0,1])/100.0
 			j=j+1
 	blocking=True
-	
+def reflect(param):
+	global Mtemp 
+	global i
+	global blocking
+	i=0
+	j=0
+	Mtemp=np.copy(M)
+	temp=param.split(',')
+	if(len(temp)==1):
+		if(param=='y=x'):
+			for points in M:
+				Mtemp[j][0]=(-points[0,1]-points[0,0])/100.0
+				Mtemp[j][1]=(-points[0,0]-points[0,1])/100.0
+				j=j+1
+		elif(param=='y=-x'):
+			for points in M:
+				Mtemp[j][0]=(points[0,1]-points[0,0])/100.0
+				Mtemp[j][1]=(points[0,0]-points[0,1])/100.0
+				j=j+1
+		elif(param=='x'):
+			for points in M:
+				Mtemp[j][0]=0
+				Mtemp[j][1]=(-points[0,1]-points[0,1])/100.0
+				j=j+1
+		elif(param=='y'):
+			for points in M:
+				Mtemp[j][0]=(-points[0,0]-points[0,0])/100.0
+				Mtemp[j][1]=0
+				j=j+1
+	else:
+		X=float(temp[0][1:])
+		Y=float(temp[1][:len(temp[1])-1])
+		sdt=radians(180)
+		for points in M:
+			X1=points[0,0]
+			Y1=points[0,1]
+			Mtemp[j][0]=(((cos(sdt)*(X1-X)-(sin(sdt))*(Y1-Y))+X)-points[0,0])/100.0
+			Mtemp[j][1]=(((sin(sdt)*(X1-X)+(cos(sdt))*(Y1-Y))+Y)-points[0,1])/100.0
+			j=j+1
+	blocking=True
 def stretch(sumbu,K):
 	global Mtemp 
 	global i
@@ -149,33 +188,7 @@ def transform():
 				rotate(sdt,X,Y)		
 			elif inpTransfType[0] == "reflect" :
 				param=inpTransfType[1]
-				temp=param.split(',')
-				if(len(temp)==1):
-					if(param=='y=x'):
-						for points in M:
-							temp=points[0,0]
-							points[0,0]=-points[0,1]
-							points[0,1]=-temp
-					elif(param=='y=-x'):
-						for points in M:
-							temp=points[0,0]
-							points[0,0]=points[0,1]
-							points[0,1]=temp
-					elif(param=='x'):
-						for points in M:
-							points[0,1]=-points[0,1]
-					elif(param=='y'):
-						for points in M:
-							points[0,0]=-points[0,0]
-				else:
-					X=float(temp[0][1:])
-					Y=float(temp[1][:len(temp[1])-1])
-					sdt=radians(180)
-					for points in M:
-						X1=points[0,0]
-						Y1=points[0,1]
-						points[0,0]=(cos(sdt)*(X1-X)-(sin(sdt))*(Y1-Y))+X
-						points[0,1]=(sin(sdt)*(X1-X)+(cos(sdt))*(Y1-Y))+Y
+				reflect(param)
 				
 			elif inpTransfType[0] == "sheer" :
 				sumbu=inpTransfType[1]
