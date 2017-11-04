@@ -6,11 +6,12 @@ import numpy as np
 import input as rn
 import transf as tf
 
-
+setup=True
 pertama=True
 window = 0                                             # glut window number
 width, height = 500, 500                               # window size
 width1, height1 = -500, -500                               # window size
+
 # initialization
 def main():
 	glutInit()                                             # initialize glut
@@ -38,10 +39,11 @@ def draw():                                            # ondraw is called all th
 	global pertama
 	global defaultM
 	global M
+	global setup
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) # clear the screen
 	glLoadIdentity()                                   # reset position
 	refresh2d(width, height)                           # set mode to 2d
-	if(pertama):
+	if(setup):
 		rn.GraphLine()
 		glutSwapBuffers()
 		M = tf.getMatrix()
@@ -53,8 +55,18 @@ def draw():                                            # ondraw is called all th
 	#glutSwapBuffers()
 
 	M = tf.transform()
+		setup=False
+	else:
+		if(pertama):
+			M = tf.getMatrix()
+			rn.drawPolygon(M)
+			pertama = False
+		else:
+			rn.GraphLine()
+			rn.drawPolygon(M)
+			M = tf.transform()
+			rn.drawPolygon(M)
 	glutSwapBuffers()
-	glutPostRedisplay()
 	
 
 
