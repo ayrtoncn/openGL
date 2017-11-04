@@ -48,7 +48,6 @@ def draw():                                            # ondraw is called all th
 		pertama = False
 	rn.drawPolygon(M)
 	glutSwapBuffers()
-	glutSwapBuffers()
 	M = tf.transform()
 	
 
