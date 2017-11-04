@@ -17,6 +17,7 @@ def inpTransfType():
 
 def getMatrix():
 	global pertama
+	global defaultM
 	if(pertama):
 		N = int(input())
 		PList = [] # DEFINE EMPTY LIST

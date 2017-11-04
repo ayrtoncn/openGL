@@ -11,6 +11,7 @@ pertama=True
 window = 0                                             # glut window number
 width, height = 500, 500                               # window size
 width1, height1 = -500, -500                               # window size
+
 # initialization
 def main():
 	glutInit()                                             # initialize glut
@@ -48,11 +49,8 @@ def draw():                                            # ondraw is called all th
 		pertama = False
 	rn.GraphLine()
 	rn.drawPolygon(M)
-	#glutSwapBuffers()
-	#glutSwapBuffers()
 	M = tf.transform()
 	glutSwapBuffers()
-	glutPostRedisplay()
 	
 
 
