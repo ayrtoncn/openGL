@@ -12,8 +12,7 @@ rotasi = False
 pertama = True
 
 
-def inpTransfType():
-	transfType = input()
+
 
 def getMatrix():
 	global pertama
@@ -199,14 +198,22 @@ def transform():
 				sumbu=inpTransfType[1]
 				K=float(inpTransfType[2])
 				stretch(sumbu,K)
-				
+			
+			elif inpTransfType[0] == 'multiple':
+				InputList = []
+				for i in range(int(inpTransfType[1])):
+					multInput = input().split(' ')
+					InputList.append(multInput)
+				print(InputList)
 			elif inpTransfType[0]=='reset':
 				j=0
 				for points in M:
 					points[0]=defaultM[j]
 					j=j+1
+			
 			elif inpTransfType[0]=='exit':
 				exit()
+			
 	if(blocking):
 		animasi()
 	#glutSwapBuffers()
