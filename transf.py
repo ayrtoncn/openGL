@@ -53,7 +53,7 @@ def animasi():
 			points[0,1]=(sin(sdtanimasi)*(X1-Xrotasi)+(cos(sdtanimasi))*(Y1-Yrotasi))+Yrotasi
 	i=i+1
 	
-	time.sleep(0.00001)
+	#time.sleep(0.00001)
 	if(i==100):
 		blocking=False
 		rotasi=False
@@ -195,7 +195,30 @@ def stretch(sumbu,K):
 			Mtemp[j][1]=(K*points[0,1]-points[0,1])/100.0
 			j=j+1
 	blocking=True	
-	
+def custom(Mcustom):
+	global Mtemp 
+	global i
+	global blocking
+	i=0
+	j=0
+	Mtemp=np.copy(M)
+	for points in M:
+		Mtemp[j][0]=((points[0,0]*Mcustom[0,0]+points[0,1]*Mcustom[1,0])-points[0,0])/100.0
+		Mtemp[j][1]=((points[0,0]*Mcustom[0,1]+points[0,1]*Mcustom[1,1])-points[0,1])/100.0
+		j=j+1	
+	blocking=True	
+def reset():
+	global Mtemp 
+	global i
+	global blocking
+	i=0
+	j=0
+	Mtemp=np.copy(M)
+	for points in M:
+		Mtemp[j][0]=(defaultM[j,0]-points[0,0])/100.0
+		Mtemp[j][1]=(defaultM[j,1]-points[0,1])/100.0
+		j=j+1	
+	blocking=True	
 def transform():
 	global isMultiple
 	global multAnimateFinish
@@ -231,7 +254,9 @@ def transform():
 				sumbu=inpTransfType[1]
 				K=float(inpTransfType[2])
 				stretch(sumbu,K)
-			
+			elif inpTransfType[0] == "custom" :
+				Mcustom=np.matrix([[int(inpTransfType[1]),int(inpTransfType[2])],[int(inpTransfType[3]),int(inpTransfType[4])]])
+				custom(Mcustom)
 			elif inpTransfType[0] == 'multiple':
 				multAnimateFinish = True
 				iMult = 0
@@ -243,11 +268,7 @@ def transform():
 				NMult = int(inpTransfType[1])
 				
 			elif inpTransfType[0]=='reset':
-				j=0
-				for points in M:
-					points[0]=defaultM[j]
-					j=j+1
-			
+				reset()
 			elif inpTransfType[0]=='exit':
 				exit()
 			
@@ -293,4 +314,8 @@ def transformList(inputList):
 		sumbu=inputList[1]
 		K=float(inputList[2])
 		stretch(sumbu,K)
-	
+	elif inputType == "custom" :
+		Mcustom=np.matrix([[int(inputList[1]),int(inputList[2])],[int(inputList[3]),int(inputList[4])]])
+		custom(Mcustom)
+	elif inputType == "reset" :
+		reset()
