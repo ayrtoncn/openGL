@@ -51,6 +51,7 @@ def draw():                                            # ondraw is called all th
 	glutSwapBuffers()
 	#glutSwapBuffers()
 	#glutSwapBuffers()
+
 	M = tf.transform()
 	glutSwapBuffers()
 	glutPostRedisplay()

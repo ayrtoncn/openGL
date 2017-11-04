@@ -34,5 +34,4 @@ def drawPolygon(Points):
 	for points in Points:
 		glVertex3fv(points)
 	glEnd()
-	glutSwapBuffers()
 	
