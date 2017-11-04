@@ -41,15 +41,18 @@ def draw():                                            # ondraw is called all th
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT) # clear the screen
 	glLoadIdentity()                                   # reset position
 	refresh2d(width, height)                           # set mode to 2d
-	rn.GraphLine()
 	if(pertama):
+		rn.GraphLine()
 		glutSwapBuffers()
 		M = tf.getMatrix()
 		pertama = False
+	rn.GraphLine()
 	rn.drawPolygon(M)
-	glutSwapBuffers()
-	glutSwapBuffers()
+	#glutSwapBuffers()
+	#glutSwapBuffers()
 	M = tf.transform()
+	glutSwapBuffers()
+	glutPostRedisplay()
 	
 
 
