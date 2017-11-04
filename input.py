@@ -25,8 +25,10 @@ def GraphLine():
 		glVertex3fv(points)
 	glEnd()
 
-def getPoints():
-	return input().split(",")
+def getPoints(N):
+	s = "> Input Titik "+ str(N) + ": "
+	
+	return input(s).split(",")
 	
 def drawPolygon(Points):
 	glBegin(GL_POLYGON)

@@ -14,6 +14,9 @@ width1, height1 = -500, -500                               # window size
 
 # initialization
 def main():
+	print("=============================================")
+	print("=========2D GEOMETRIC TRANSFORMATION=========")
+	print("=============================================")
 	glutInit()                                             # initialize glut
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH)
 	glutInitWindowSize(width, height)                      # set window size

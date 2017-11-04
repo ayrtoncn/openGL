@@ -23,16 +23,46 @@ def getMatrix():
 	global pertama
 	global defaultM
 	if(pertama):
-		N = int(input())
+		N = int(input("> Input Jumlah Titik: "))
 		PList = [] # DEFINE EMPTY LIST
 		global M
 		for i in range(N): # GET POINTS
-			X, Y = rn.getPoints()
+			X, Y = rn.getPoints(i+1)
 			PList.append([float(X), float(Y),0.0])
 		M = np.matrix(PList)
 		
 		defaultM=np.copy(M)
 		pertama = False
+		
+		print("=================================================")
+		print("=======Available Transformation Commands:========")
+		print("=================================================")
+		print()
+		print("translate X Y")
+		print("Translasi sebesar X dan Y")
+		print()
+		print("dilate C")
+		print("Mendilatasi objek sebesar C kali terhadap titik pusat")
+		print()
+		print("rotate sudut X Y")
+		print("Merotasi objek sebesar sudut dengan titik pusat X Y")
+		print()
+		print("shear sumbu K")
+		print("Melakukan operasi shear objek terhadap suatu sumbu sebesar K")
+		print()
+		print("stretch sumbu K")
+		print("Melakukan stretch terhadap suatu sumbu sebesar K")
+		print()
+		print("custom A B C D")
+		print("Mengoperasikan matriks transformasi terhadap objek")
+		print()
+		print("multiple N")
+		print("Mengoperasikan objek dengan sejumlah N buah operasi yang tercantum sebelumnya")
+		print()
+		print("exit")
+		print("Keluar")
+		print("==================================================")
+		print()
 	return M
 
 def animasi():
@@ -119,7 +149,7 @@ def rotate(sdt,X,Y):
 	Yrotasi=Y
 	blocking=True
 	
-def sheer(sumbu,K):
+def shear(sumbu,K):
 	global Mtemp 
 	global i
 	global blocking
@@ -204,7 +234,7 @@ def transform():
 	global InputList
 	if(not(blocking) and not(isMultiple)):
 		if(not(pertama)):
-			n=input()
+			n=input("> Masukkan Command Transformasi : ")
 			inpTransfType=n.split(' ')
 			if inpTransfType[0] == "translate" :
 				X=int(inpTransfType[1])
@@ -222,7 +252,7 @@ def transform():
 				param=inpTransfType[1]
 				reflect(param)
 				
-			elif inpTransfType[0] == "sheer" :
+			elif inpTransfType[0] == "shear" :
 				sumbu=inpTransfType[1]
 				K=float(inpTransfType[2])
 				sheer(sumbu,K)
@@ -237,8 +267,10 @@ def transform():
 				iMult = 0
 				InputList = []
 				isMultiple = True
+				print("===========Entering Multiple Mode============")
 				for i in range(int(inpTransfType[1])):
-					multInput = input().split(' ')
+					s = "> Masukkan command transformasi multiple " + str(i+1) + ": "
+					multInput = input(s).split(' ')
 					InputList.append(multInput)
 				NMult = int(inpTransfType[1])
 				
@@ -249,12 +281,14 @@ def transform():
 					j=j+1
 			
 			elif inpTransfType[0]=='exit':
+				print("Exiting Program...")
 				exit()
 			
 	if(blocking and not(isMultiple)):
 		animasi()
 	if(isMultiple):
 		if(multAnimateFinish):
+			print("Animating "+str(InputList[iMult][0])+ "...")
 			transformList(InputList[iMult])
 			iMult += 1
 			multAnimateFinish = False
@@ -263,6 +297,7 @@ def transform():
 			animasiMult()
 		if(iMult == NMult):
 			isMultiple = False
+			print("=============Multiple Complete===============")
 	return M
 	
 def transformList(inputList):
@@ -284,7 +319,7 @@ def transformList(inputList):
 		param=inputList[1]
 		reflect(param)
 		
-	elif inputType == "sheer" :
+	elif inputType == "shear" :
 		sumbu=inputList[1]
 		K=float(inputList[2])
 		sheer(sumbu,K)
