@@ -49,8 +49,8 @@ def animasi():
 			points[0,1]=(sin(sdtanimasi)*(X1-Xrotasi)+(cos(sdtanimasi))*(Y1-Yrotasi))+Yrotasi
 	i=i+1
 	
-	time.sleep(0.001)
-	if(i==10):
+	time.sleep(0.00001)
+	if(i==100):
 		blocking=False
 		rotasi=False
 
@@ -62,8 +62,8 @@ def translate(X,Y):
 	Mtemp=np.copy(M)
 	Mtemp.astype(float)
 	for points in Mtemp:
-		points[0]=X/10.0
-		points[1]=Y/10.0
+		points[0]=X/100.0
+		points[1]=Y/100.0
 	blocking=True
 def dilate(dil):
 	global Mtemp 
@@ -73,8 +73,8 @@ def dilate(dil):
 	j=0
 	Mtemp=np.copy(M)
 	for points in M:
-		Mtemp[j][0]=(points[0,0]*dil-points[0,0])/10.0
-		Mtemp[j][1]=(points[0,1]*dil-points[0,1])/10.0
+		Mtemp[j][0]=(points[0,0]*dil-points[0,0])/100.0
+		Mtemp[j][1]=(points[0,1]*dil-points[0,1])/100.0
 		j=j+1
 	blocking=True
 def rotate(sdt,X,Y):
@@ -86,7 +86,7 @@ def rotate(sdt,X,Y):
 	global sdtanimasi
 	global Xrotasi
 	global Yrotasi
-	sdtanimasi=sdt/10.0
+	sdtanimasi=sdt/100.0
 	rotasi=True
 	Xrotasi=X
 	Yrotasi=Y
@@ -101,13 +101,13 @@ def sheer(sumbu,K):
 	Mtemp=np.copy(M)
 	if(sumbu=='x'):
 		for points in M:
-			Mtemp[j][0]=(points[0,0]+K*points[0,1]-points[0,0])/10.0
+			Mtemp[j][0]=(points[0,0]+K*points[0,1]-points[0,0])/100.0
 			Mtemp[j][1]=0
 			j=j+1
 	elif(sumbu=='y'):
 		for points in M:
 			Mtemp[j][0]=0
-			Mtemp[j][1]=(points[0,1]+K*points[0,0]-points[0,1])/10.0
+			Mtemp[j][1]=(points[0,1]+K*points[0,0]-points[0,1])/100.0
 			j=j+1
 	blocking=True
 	
@@ -120,13 +120,13 @@ def stretch(sumbu,K):
 	Mtemp=np.copy(M)
 	if(sumbu=='x'):
 		for points in M:
-			Mtemp[j][0]=(K*points[0,0]-points[0,0])/10.0
+			Mtemp[j][0]=(K*points[0,0]-points[0,0])/100.0
 			Mtemp[j][1]=0
 			j=j+1
 	elif(sumbu=='y'):
 		for points in M:
 			Mtemp[j][0]=0
-			Mtemp[j][1]=(K*points[0,1]-points[0,1])/10.0
+			Mtemp[j][1]=(K*points[0,1]-points[0,1])/100.0
 			j=j+1
 	blocking=True	
 	
