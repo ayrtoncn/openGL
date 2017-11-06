@@ -4,7 +4,7 @@ from OpenGL.GLUT import *
 from math import *
 import numpy as np
 import sys
-import input as rn
+import render as rn
 import time
 
 blocking=False

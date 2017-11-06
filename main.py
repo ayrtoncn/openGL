@@ -3,7 +3,7 @@ from OpenGL.GLUT import *
 from OpenGL.GLU import *
 
 import numpy as np
-import input as rn
+import render as rn
 import transf as tf
 
 setup=True
