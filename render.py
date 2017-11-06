@@ -6,7 +6,8 @@ import sys
 
 
 graph_line = np.matrix([[0,500,0],[0,-500,0],[500,0,0],[-500,0,0]])
-
+width, height = 500, 500                           		    # window size
+width1, height1 = -500, -500                               # window size
 
 def GraphLine():
 	"""
@@ -19,11 +20,30 @@ def GraphLine():
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0)
 	glDrawArrays(GL_LINES,0,1)
 	"""
+	drawGrid()
 	glBegin(GL_LINES)
 	glColor3f(1.0,1.0,1.0)
 	for points in graph_line:
 		glVertex3fv(points)
 	glEnd()
+	
+	
+def drawGrid():
+	#draw horizontal grid
+	X = width1
+	Y = height1
+	glBegin(GL_LINES)
+	glColor3f(0.2,0.2,0.2)
+	while (X < width):
+		glVertex3fv((X,height1,0))
+		glVertex3fv((X,height,0))
+		X += 100
+	while (Y < height):
+		glVertex3fv((width1,Y,0))
+		glVertex3fv((width,Y,0))
+		Y += 100
+	glEnd()
+	
 
 def getPoints(N):
 	s = "> Input Titik "+ str(N) + ": "
@@ -36,7 +56,7 @@ def triangulate(polygon):
     def beginCallback(param=None):
         vertices = []
     def vertexCallback(vertex, otherData=None):
-        vertices.append(vertex[:2])
+        vertices.append(vertex)
     def combineCallback(vertex, neighbors, neighborWeights, out=None):
         out = vertex
         return out
@@ -54,7 +74,7 @@ def triangulate(polygon):
     #first handle the main polygon
     gluTessBeginContour(tess)
     for point in polygon:
-        point3d = (point[0,0], point[0,1], 0)
+        point3d = (point[0,0], point[0,1], point[0,2])
         gluTessVertex(tess, point3d, point3d)
     gluTessEndContour(tess)
 
@@ -67,9 +87,9 @@ def triangulate(polygon):
 def drawPolygon(Polygon):
 	vertices = triangulate(Polygon)
 	glBegin(GL_TRIANGLES)
-	glColor3f(0.0, 0.0, 1.0)  
+	glColor3f(0.5, 1.0, 0.5)  
 	for points in vertices:
-		glVertex2fv(points)
+		glVertex3fv(points)
 	glEnd()
 	glutSwapBuffers()
 	

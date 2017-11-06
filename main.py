@@ -25,8 +25,6 @@ def main():
 	glutDisplayFunc(draw)   								# set draw function callback
 	glutIdleFunc(draw)                                     # draw all the time   
 	glutMainLoop()                                          # done drawing a rectangle
-
-
 	
 	
 def refresh2d(width, height):
