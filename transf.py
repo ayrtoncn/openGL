@@ -15,6 +15,7 @@ multAnimateFinish = True
 NMult = 0
 InputList = []
 iMult = 0
+animateType = ""
 
 
 
@@ -66,6 +67,7 @@ def getMatrix():
 	return M
 
 def animasi():
+	global animateType
 	global blocking
 	global i
 	global rotasi
@@ -87,6 +89,8 @@ def animasi():
 	if(i==100):
 		blocking=False
 		rotasi=False
+		print("Animating "+animateType+"...")
+		print()
 		
 def animasiMult():
 	global multAnimateFinish
@@ -255,6 +259,7 @@ def transform():
 	global iMult
 	global NMult
 	global InputList
+	global animateType
 	if(not(blocking) and not(isMultiple)):
 		if(not(pertama)):
 			n=input("> Masukkan Command Transformasi : ")
@@ -263,6 +268,7 @@ def transform():
 				X=int(inpTransfType[1])
 				Y=int(inpTransfType[2])
 				translate(X,Y)	
+				
 			elif inpTransfType[0] == "dilate" :
 				dil=float(inpTransfType[1])
 				dilate(dil)			
@@ -304,6 +310,8 @@ def transform():
 			elif inpTransfType[0]=='exit':
 				print("Exiting Program...")
 				exit()
+			animateType = inpTransfType[0]
+			
 			
 	if(blocking and not(isMultiple)):
 		animasi()
